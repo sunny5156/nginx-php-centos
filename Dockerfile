@@ -12,7 +12,7 @@ RUN yum -y install epel-release; yum clean all
 
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
-RUN rpm -ivh http://nginx.org/packages/centos/6/x86_64/RPMS/nginx-1.8.1-1.el6.ngx.x86_64.rpm
+RUN rpm -ivh http://nginx.org/packages/centos/7/x86_64/RPMS/nginx-1.8.1-1.el7.ngx.x86_64.rpm
 
 #ADD nginx.repo /etc/yum.repos.d/nginx.repo
 
