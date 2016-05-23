@@ -3,5 +3,5 @@
 chkconfig nginx on;
 chkconfig php-fpm on;
 
-service nginx restart;
-service php-fpm restart;
+systemctl nginx restart;
+systemctl php-fpm restart;
