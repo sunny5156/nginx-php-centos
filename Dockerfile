@@ -38,4 +38,4 @@ EXPOSE 80
 ADD init.sh /var/www/init.sh
 RUN chmod +x /var/www/init.sh
 
-#RUN /var/www/init.sh
+RUN /var/www/init.sh
