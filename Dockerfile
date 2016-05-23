@@ -11,12 +11,12 @@ RUN yum -y install epel-release; yum clean all
 
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
-RUN rpm -ivh http://nginx.org/packages/centos/7/x86_64/RPMS/nginx-1.8.1-1.el7.ngx.x86_64.rpm
+#RUN rpm -ivh http://nginx.org/packages/centos/7/x86_64/RPMS/nginx-1.8.1-1.el7.ngx.x86_64.rpm
 
 #ADD nginx.repo /etc/yum.repos.d/nginx.repo
 
 # Install nginx 
-#RUN yum -y install nginx; yum clean all
+RUN yum -y install nginx; yum clean all
 
 # Install PHP
 RUN yum -y --enablerepo=remi,remi-php56 --skip-broken install php-fpm php-common php-cli php-pdo php-mysql php-gd php-imap php-ldap php-odbc php-opcache php-pear php-xml php-devel php-xmlrpc php-mbstring php-mcrypt php-bcmath php-mhash libmcrypt; yum clean all
