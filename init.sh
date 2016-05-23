@@ -3,5 +3,5 @@
 chkconfig nginx on;
 chkconfig php-fpm on;
 
-systemctl nginx restart;
-systemctl php-fpm restart;
+sudo systemctl start nginx.service
+sudo systemctl start php-fpm.service
