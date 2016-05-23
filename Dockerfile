@@ -19,10 +19,10 @@ RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 RUN yum -y install sudo;
 
 # Install nginx 
-RUN yum -y install nginx; yum clean all
+RUN yum -y install nginx; yum clean all;
 
 # Install PHP
-RUN yum -y --enablerepo=remi,remi-php56 --skip-broken install php-fpm php-common php-cli php-pdo php-mysql php-gd php-imap php-ldap php-odbc php-opcache php-pear php-xml php-devel php-xmlrpc php-mbstring php-mcrypt php-bcmath php-mhash libmcrypt; yum clean all
+RUN yum -y --enablerepo=remi,remi-php56 --skip-broken install php-fpm php-common php-cli php-pdo php-mysql php-gd php-imap php-ldap php-odbc php-opcache php-pear php-xml php-devel php-xmlrpc php-mbstring php-mcrypt php-bcmath php-mhash libmcrypt; yum clean all;
 
 # Add the configuration file of the nginx
 ADD nginx.conf /etc/nginx/nginx.conf
@@ -34,8 +34,8 @@ ADD index.php /var/www/html/index.php
 RUN chkconfig nginx on
 RUN chkconfig php-fpm on
 
-RUN sudo systemctl start nginx.service
-RUN sudo systemctl start php-fpm.service
+RUN systemctl start nginx.service
+RUN systemctl start php-fpm.service
 
 # Set the port to 80 
 EXPOSE 80
