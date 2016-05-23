@@ -5,7 +5,7 @@
 FROM centos:7
 MAINTAINER sunny5156 <137898350@qq.com>
 
-ENV REFRESHED_AT 2015-06-05
+ENV REFRESHED_AT 2016-05-23
 
 RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
