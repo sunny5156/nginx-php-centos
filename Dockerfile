@@ -16,7 +16,7 @@ RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 #ADD nginx.repo /etc/yum.repos.d/nginx.repo
 
 #Install sudo
-RUN yum -y sudo;
+RUN yum -y install sudo;
 
 # Install nginx 
 RUN yum -y install nginx; yum clean all
