@@ -15,11 +15,6 @@ RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
 ADD nginx.repo /etc/yum.repos.d/nginx.repo
 
-# Install supervisor
-#RUN yum install -y python-setuptools; yum clean all
-#RUN easy_install pip
-#RUN pip install supervisor
-
 # Install nginx 
 RUN yum -y install nginx; yum clean all
 
@@ -30,8 +25,6 @@ RUN yum -y --enablerepo=remi,remi-php56 --skip-broken install php-fpm php-common
 ADD nginx.conf /etc/nginx/nginx.conf
 ADD default.conf /etc/nginx/conf.d/default.conf
 
-# Add the configuration file of the Supervisor
-#ADD supervisord.conf /etc/
 
 # Add the file
 ADD index.php /var/www/html/index.php
@@ -45,4 +38,4 @@ EXPOSE 80
 ADD init.sh /var/www/init.sh
 RUN chmod +x /var/www/init.sh
 
-RUN /var/www/init.sh
+#RUN /var/www/init.sh
