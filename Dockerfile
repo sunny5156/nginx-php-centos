@@ -31,13 +31,19 @@ ADD default.conf /etc/nginx/conf.d/default.conf
 # Add the file
 ADD index.php /var/www/html/index.php
 
+RUN chkconfig nginx on
+RUN chkconfig php-fpm on
+
+RUN sudo systemctl start nginx.service
+RUN sudo systemctl start php-fpm.service
+
 # Set the port to 80 
 EXPOSE 80
 
 # Executing supervisord
 #CMD ["supervisord", "-n"]
 
-ADD init.sh /var/www/init.sh
-RUN chmod +x /var/www/init.sh
+#ADD init.sh /var/www/init.sh
+#RUN chmod +x /var/www/init.sh
 
-RUN sh /var/www/init.sh
+#RUN sh /var/www/init.sh
