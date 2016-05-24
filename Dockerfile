@@ -6,6 +6,8 @@ FROM centos:7
 MAINTAINER sunny5156 <137898350@qq.com>
 
 
+
+
 RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
 
@@ -46,7 +48,8 @@ RUN chkconfig php-fpm on
 EXPOSE 80
 
 # Executing supervisord
-CMD ["/usr/sbin/init"]
+#CMD ["/usr/sbin/init"]
+ENTRYPOINT ['/usr/sbin/init']
 
 #ADD init.sh /var/www/init.sh
 #RUN chmod +x /var/www/init.sh
