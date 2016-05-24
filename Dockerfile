@@ -2,7 +2,7 @@
 # 
 # Version:1.0.0
 
-FROM centos:centos7
+FROM centos:centos6
 MAINTAINER sunny5156 <137898350@qq.com>
 
 RUN yum -y update; yum clean all
