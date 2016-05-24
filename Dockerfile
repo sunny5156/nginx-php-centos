@@ -49,7 +49,7 @@ EXPOSE 80
 
 # Executing supervisord
 #CMD ["/usr/sbin/init"]
-ENTRYPOINT ['/usr/sbin/init']
+#ENTRYPOINT ['/usr/sbin/init']
 
 #ADD init.sh /var/www/init.sh
 #RUN chmod +x /var/www/init.sh
