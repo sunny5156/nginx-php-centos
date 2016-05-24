@@ -2,7 +2,7 @@
 # 
 # Version:1.0.0
 
-FROM centos:7
+FROM centos:6.5
 MAINTAINER sunny5156 <137898350@qq.com>
 
 RUN yum -y update; yum clean all
@@ -10,7 +10,7 @@ RUN yum -y install epel-release; yum clean all
 
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
-#RUN rpm -ivh http://nginx.org/packages/centos/7/x86_64/RPMS/nginx-1.8.1-1.el7.ngx.x86_64.rpm
+#RUN rpm -ivh http://nginx.org/packages/centos/6/x86_64/RPMS/nginx-1.8.1-1.el7.ngx.x86_64.rpm
 
 ADD nginx.repo /etc/yum.repos.d/nginx.repo
 
@@ -32,6 +32,9 @@ ADD index.php /var/www/html/index.php
 
 RUN chkconfig nginx on
 RUN chkconfig php-fpm on
+
+RUN service nginx restart
+RUN service php-fpm restart
 
 #RUN systemctl start nginx.service
 #RUN systemctl start php-fpm.service
