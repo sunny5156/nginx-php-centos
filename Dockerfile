@@ -5,20 +5,8 @@
 FROM centos:7
 MAINTAINER sunny5156 <137898350@qq.com>
 
-RUN yum -y swap -- remove systemd-container systemd-container-libs -- install systemd systemd-libs
 
-RUN yum -y update; yum clean all; \
-(cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
-rm -f /lib/systemd/system/multi-user.target.wants/*;\
-rm -f /etc/systemd/system/*.wants/*;\
-rm -f /lib/systemd/system/local-fs.target.wants/*; \
-rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
-rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
-rm -f /lib/systemd/system/basic.target.wants/*;\
-rm -f /lib/systemd/system/anaconda.target.wants/*;
-
-
-#RUN yum -y update; yum clean all
+RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
 
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
@@ -46,8 +34,13 @@ ADD index.php /var/www/html/index.php
 RUN chkconfig nginx on
 RUN chkconfig php-fpm on
 
-RUN systemctl start nginx.service
-RUN systemctl start php-fpm.service
+#RUN systemctl start nginx.service
+#RUN systemctl start php-fpm.service
+
+#Open firewall ports
+RUN firewall-cmd --permanent --add-service=http
+RUN firewall-cmd --permanent --add-service=https
+RUN firewall-cmd --reload
 
 # Set the port to 80 
 EXPOSE 80
