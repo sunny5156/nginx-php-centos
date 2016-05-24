@@ -38,9 +38,9 @@ RUN chkconfig php-fpm on
 #RUN systemctl start php-fpm.service
 
 #Open firewall ports
-RUN firewall-cmd --permanent --add-service=http
-RUN firewall-cmd --permanent --add-service=https
-RUN firewall-cmd --reload
+#RUN firewall-cmd --permanent --add-service=http
+#RUN firewall-cmd --permanent --add-service=https
+#RUN firewall-cmd --reload
 
 # Set the port to 80 
 EXPOSE 80
