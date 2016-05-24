@@ -46,7 +46,7 @@ RUN chkconfig php-fpm on
 EXPOSE 80
 
 # Executing supervisord
-#CMD ["supervisord", "-n"]
+CMD ["/usr/sbin/init"]
 
 #ADD init.sh /var/www/init.sh
 #RUN chmod +x /var/www/init.sh
