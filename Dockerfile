@@ -35,10 +35,11 @@ RUN chkconfig nginx on
 RUN chkconfig php-fpm on
 
 #RUN service nginx restart
-#RUN service php-fpm restart
 
 RUN nginx
 RUN php-fpm
+
+RUN service php-fpm status
 
 #RUN systemctl start nginx.service
 #RUN systemctl start php-fpm.service
