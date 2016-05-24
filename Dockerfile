@@ -2,7 +2,7 @@
 # 
 # Version:1.0.0
 
-FROM centos:6
+FROM centos:7
 MAINTAINER sunny5156 <137898350@qq.com>
 
 RUN yum -y update; yum clean all
@@ -30,11 +30,11 @@ ADD default.conf /etc/nginx/conf.d/default.conf
 # Add the file
 ADD index.php /var/www/html/index.php
 
-#RUN chkconfig nginx on
-#RUN chkconfig php-fpm on
+RUN chkconfig nginx on
+RUN chkconfig php-fpm on
 
-RUN service nginx restart
-RUN service php-fpm restart
+#RUN service nginx restart
+#RUN service php-fpm restart
 
 #RUN systemctl start nginx.service
 #RUN systemctl start php-fpm.service
