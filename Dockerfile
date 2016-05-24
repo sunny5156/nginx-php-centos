@@ -5,9 +5,6 @@
 FROM centos:7
 MAINTAINER sunny5156 <137898350@qq.com>
 
-
-
-
 RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
 
@@ -15,7 +12,7 @@ RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
 #RUN rpm -ivh http://nginx.org/packages/centos/7/x86_64/RPMS/nginx-1.8.1-1.el7.ngx.x86_64.rpm
 
-#ADD nginx.repo /etc/yum.repos.d/nginx.repo
+ADD nginx.repo /etc/yum.repos.d/nginx.repo
 
 #Install sudo
 RUN yum -y install sudo;
