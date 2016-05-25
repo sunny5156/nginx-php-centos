@@ -36,12 +36,12 @@ ADD index.php /var/www/html/index.php
 RUN chkconfig nginx on
 RUN chkconfig php-fpm on
 
-#RUN service nginx restart
+RUN service nginx restart
 
-RUN nginx
-RUN php-fpm
+#RUN nginx
+#RUN php-fpm
 
-#RUN service php-fpm status
+RUN service php-fpm status
 
 #RUN systemctl start nginx.service
 #RUN systemctl start php-fpm.service
