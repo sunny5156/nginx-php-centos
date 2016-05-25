@@ -2,7 +2,7 @@
 # 
 # Version:1.0.0
 
-FROM centos:7
+FROM centos:latest
 MAINTAINER sunny5156 <137898350@qq.com>
 
 RUN yum -y update; yum clean all
@@ -38,8 +38,8 @@ RUN chkconfig php-fpm on
 
 #RUN service nginx restart
 
-#RUN nginx
-#RUN php-fpm
+RUN nginx
+RUN php-fpm
 
 #RUN service php-fpm status
 
