@@ -31,7 +31,7 @@ ADD default.conf /etc/nginx/conf.d/default.conf
 # Add the file
 ADD index.php /var/www/html/index.php
 
-ENTRYPOINT ['/usr/sbin/init'] 
+#ENTRYPOINT ['/usr/sbin/init'] 
 
 RUN chkconfig nginx on
 RUN chkconfig php-fpm on
