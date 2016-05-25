@@ -32,7 +32,7 @@ RUN systemctl enable named.service
 # webserver service
 RUN yum install -y nginx
 RUN systemctl enable nginx.service
-RUN systemctl start nginx.service
+#RUN systemctl start nginx.service
 
 # Without this, init won't start the enabled services and exec'ing and starting
 # them reports "Failed to get D-Bus connection: Operation not permitted".
