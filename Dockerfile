@@ -38,10 +38,10 @@ ADD supervisord.conf /etc/supervisord.conf
 RUN chkconfig nginx on
 RUN chkconfig php-fpm on
 
-ADD init.sh /var/init.sh
-ADD chmod a+x /var/init.sh
+ADD init.sh /init.sh
+ADD chmod +x /init.sh
 
-RUN /var/init.sh
+RUN /init.sh
 
 
 #Open firewall ports
