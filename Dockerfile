@@ -1,42 +1,53 @@
-# This shows systemd services (nginx and named) running in a centos7 container.
-# There have been lots of problems and workarounds for this, see:
-# https://hub.docker.com/_/centos/
-# https://github.com/docker/docker/issues/7459
+# PHP\Python\NodeJS
+# 
+# Version:1.0.0
 
-FROM centos:centos7
+FROM centos:7
+MAINTAINER sunny5156 <137898350@qq.com>
 
-RUN yum install -y epel-release # for nginx
-RUN yum install -y initscripts  # for old "service"
+RUN yum -y update; yum clean all
+RUN yum -y install epel-release; yum clean all
+RUN yum -y install initscripts; 
 
-ENV container=docker
+RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
-RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
-rm -f /lib/systemd/system/multi-user.target.wants/*;\
-rm -f /etc/systemd/system/*.wants/*;\
-rm -f /lib/systemd/system/local-fs.target.wants/*; \
-rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
-rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
-rm -f /lib/systemd/system/basic.target.wants/*;\
-rm -f /lib/systemd/system/anaconda.target.wants/*;
+ADD nginx.repo /etc/yum.repos.d/nginx.repo
 
-# named (dns server) service
-RUN yum install -y bind bind-utils
-RUN systemctl enable named.service 
+# Install supervisor
+RUN yum install -y python-setuptools; yum clean all
+RUN easy_install pip
+RUN pip install supervisor
 
-# Unrelated to systemd, but Apacehe httpd install fails at least if docker uses
-# (default) aufs.
-#   Error unpacking rpm package httpd-2.4.6-40.el7.centos.x86_64
-#   error: unpacking of archive failed on file /usr/sbin/suexec: cpio: cap_set_file
-#RUN yum install -y httpd
 
-# webserver service
-RUN yum install -y nginx
-RUN systemctl enable nginx.service
-#RUN systemctl start nginx.service
+# Install nginx 
+RUN yum -y install nginx; yum clean all;
 
-# Without this, init won't start the enabled services and exec'ing and starting
-# them reports "Failed to get D-Bus connection: Operation not permitted".
-VOLUME /run /tmp
+# Install PHP
+RUN yum -y --enablerepo=remi,remi-php56 --skip-broken install php-fpm php-common php-cli php-pdo php-mysql php-gd php-imap php-ldap php-odbc php-opcache php-pear php-xml php-devel php-xmlrpc php-mbstring php-mcrypt php-bcmath php-mhash libmcrypt; yum clean all;
 
-# Don't know if it's possible to run services without starting this
-#CMD /usr/sbin/init
+# Add the configuration file of the nginx
+ADD nginx.conf /etc/nginx/nginx.conf
+ADD default.conf /etc/nginx/conf.d/default.conf
+
+# Add the file
+ADD index.php /var/www/html/index.php
+
+#Add supervisord conf
+ADD supervisord.conf /etc/supervisord.conf
+
+RUN chkconfig nginx on
+RUN chkconfig php-fpm on
+
+ADD init.sh /var/init.sh
+ADD chmod a+x /var/init.sh
+
+RUN /var/init.sh
+
+
+#Open firewall ports
+#RUN firewall-cmd --permanent --add-service=http
+#RUN firewall-cmd --permanent --add-service=https
+#RUN firewall-cmd --reload
+
+# Set the port to 80 443
+#EXPOSE 80 443
