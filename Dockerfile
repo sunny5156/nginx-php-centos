@@ -36,7 +36,7 @@ ENTRYPOINT ['/usr/sbin/init']
 RUN chkconfig nginx on
 RUN chkconfig php-fpm on
 
-RUN service nginx restart
+#RUN service nginx restart
 
 #RUN nginx
 #RUN php-fpm
