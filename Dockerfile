@@ -7,11 +7,11 @@ MAINTAINER sunny5156 <137898350@qq.com>
 
 RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
-#RUN yum install -y initscripts  # for old "service"
+RUN yum install -y initscripts  # for old "service"
 
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
-#RUN rpm -ivh http://nginx.org/packages/centos/7/x86_64/RPMS/nginx-1.8.1-1.el7.ngx.x86_64.rpm
+RUN rpm -ivh http://nginx.org/packages/centos/7/x86_64/RPMS/nginx-1.8.1-1.el7.ngx.x86_64.rpm
 
 #ADD nginx.repo /etc/yum.repos.d/nginx.repo
 
@@ -22,24 +22,24 @@ RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 #RUN yum -y install nginx; yum clean all;
 
 # Install PHP
-#RUN yum -y --enablerepo=remi,remi-php56 --skip-broken install php-fpm php-common php-cli php-pdo php-mysql php-gd php-imap php-ldap php-odbc php-opcache php-pear php-xml php-devel php-xmlrpc php-mbstring php-mcrypt php-bcmath php-mhash libmcrypt; yum clean all;
+RUN yum -y --enablerepo=remi,remi-php56 --skip-broken install php-fpm php-common php-cli php-pdo php-mysql php-gd php-imap php-ldap php-odbc php-opcache php-pear php-xml php-devel php-xmlrpc php-mbstring php-mcrypt php-bcmath php-mhash libmcrypt; yum clean all;
 
 # Add the configuration file of the nginx
-#ADD nginx.conf /etc/nginx/nginx.conf
-#ADD default.conf /etc/nginx/conf.d/default.conf
+ADD nginx.conf /etc/nginx/nginx.conf
+ADD default.conf /etc/nginx/conf.d/default.conf
 
 # Add the file
-#ADD index.php /var/www/html/index.php
+ADD index.php /var/www/html/index.php
 
-#RUN chkconfig nginx on
-#RUN chkconfig php-fpm on
+RUN chkconfig nginx on
+RUN chkconfig php-fpm on
 
-#RUN service nginx restart
+RUN service nginx restart
 
 #RUN nginx
 #RUN php-fpm
 
-#RUN service php-fpm status
+RUN service php-fpm status
 
 #RUN systemctl start nginx.service
 #RUN systemctl start php-fpm.service
