@@ -39,7 +39,7 @@ RUN chkconfig nginx on
 RUN chkconfig php-fpm on
 
 ADD init.sh  /init.sh
-ADD chmod +x /init.sh
+RUN chmod +x /init.sh
 
 RUN /init.sh
 
