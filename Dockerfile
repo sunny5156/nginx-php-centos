@@ -31,8 +31,8 @@ ADD default.conf /etc/nginx/conf.d/default.conf
 # Add the file
 ADD index.php /var/www/html/index.php
 
-RUN chkconfig nginx on
-RUN chkconfig php-fpm on
+#RUN chkconfig nginx on
+#RUN chkconfig php-fpm on
 
 #RUN service nginx restart
 
