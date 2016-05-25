@@ -1,64 +1,41 @@
-# PHP\Python\NodeJS
-# 
-# Version:1.0.0
+# This shows systemd services (nginx and named) running in a centos7 container.
+# There have been lots of problems and workarounds for this, see:
+# https://hub.docker.com/_/centos/
+# https://github.com/docker/docker/issues/7459
 
-FROM centos:latest
-MAINTAINER sunny5156 <137898350@qq.com>
+FROM centos:centos7
 
-RUN yum -y update; yum clean all
-RUN yum -y install epel-release; yum clean all
-RUN yum -y install initscripts; 
+RUN yum install -y epel-release # for nginx
+RUN yum install -y initscripts  # for old "service"
 
-RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+ENV container=docker
 
-#RUN rpm -ivh http://nginx.org/packages/centos/7/x86_64/RPMS/nginx-1.8.1-1.el7.ngx.x86_64.rpm
+RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
+rm -f /lib/systemd/system/multi-user.target.wants/*;\
+rm -f /etc/systemd/system/*.wants/*;\
+rm -f /lib/systemd/system/local-fs.target.wants/*; \
+rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
+rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
+rm -f /lib/systemd/system/basic.target.wants/*;\
+rm -f /lib/systemd/system/anaconda.target.wants/*;
 
-ADD nginx.repo /etc/yum.repos.d/nginx.repo
+# named (dns server) service
+RUN yum install -y bind bind-utils
+RUN systemctl enable named.service 
 
-#Install sudo
-#RUN yum -y install sudo;
+# Unrelated to systemd, but Apacehe httpd install fails at least if docker uses
+# (default) aufs.
+#   Error unpacking rpm package httpd-2.4.6-40.el7.centos.x86_64
+#   error: unpacking of archive failed on file /usr/sbin/suexec: cpio: cap_set_file
+#RUN yum install -y httpd
 
-# Install nginx 
-RUN yum -y install nginx; yum clean all;
+# webserver service
+RUN yum install -y nginx
+RUN systemctl enable nginx.service
 
-# Install PHP
-RUN yum -y --enablerepo=remi,remi-php56 --skip-broken install php-fpm php-common php-cli php-pdo php-mysql php-gd php-imap php-ldap php-odbc php-opcache php-pear php-xml php-devel php-xmlrpc php-mbstring php-mcrypt php-bcmath php-mhash libmcrypt; yum clean all;
+# Without this, init won't start the enabled services and exec'ing and starting
+# them reports "Failed to get D-Bus connection: Operation not permitted".
+VOLUME /run /tmp
 
-# Add the configuration file of the nginx
-ADD nginx.conf /etc/nginx/nginx.conf
-ADD default.conf /etc/nginx/conf.d/default.conf
-
-# Add the file
-ADD index.php /var/www/html/index.php
-
-#ENTRYPOINT ['/usr/sbin/init'] 
-
-RUN chkconfig nginx on
-RUN chkconfig php-fpm on
-
-RUN service nginx restart
-
-#RUN nginx
-#RUN php-fpm
-
-RUN service php-fpm status
-
-#RUN systemctl start nginx.service
-#RUN systemctl start php-fpm.service
-
-#Open firewall ports
-#RUN firewall-cmd --permanent --add-service=http
-#RUN firewall-cmd --permanent --add-service=https
-#RUN firewall-cmd --reload
-
-# Set the port to 80 
-#EXPOSE 80
-
-# Executing supervisord
-#CMD ["/usr/sbin/init"]
-#ENTRYPOINT ['/usr/sbin/init']
-
-#ADD init.sh /var/www/init.sh
-#RUN chmod +x /var/www/init.sh
-
-#RUN sh /var/www/init.sh
+# Don't know if it's possible to run services without starting this
+CMD /usr/sbin/init
