@@ -7,7 +7,7 @@ MAINTAINER sunny5156 <137898350@qq.com>
 
 RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
-RUN yum install -y initscripts  # for old "service"
+RUN yum -y install initscripts; 
 
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
