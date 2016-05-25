@@ -38,4 +38,4 @@ RUN systemctl enable nginx.service
 VOLUME /run /tmp
 
 # Don't know if it's possible to run services without starting this
-CMD /usr/sbin/init
+#CMD /usr/sbin/init
