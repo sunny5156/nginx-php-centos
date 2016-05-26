@@ -1,4 +1,4 @@
-# PHP\Python\NodeJS
+# nginx php centos
 # 
 # Version:1.0.0
 
@@ -11,13 +11,13 @@ RUN yum -y install initscripts;
 
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
+# add nginx repo
 ADD nginx.repo /etc/yum.repos.d/nginx.repo
 
 # Install supervisor
 RUN yum install -y python-setuptools; yum clean all
 RUN easy_install pip
 RUN pip install supervisor
-
 
 # Install nginx 
 RUN yum -y install nginx; yum clean all;
@@ -43,9 +43,6 @@ RUN chmod +x /init.sh
 
 #RUN /init.sh
 
-ENTRYPOINT ['supervisord']
-
-
 #Open firewall ports
 #RUN firewall-cmd --permanent --add-service=http
 #RUN firewall-cmd --permanent --add-service=https
@@ -53,5 +50,3 @@ ENTRYPOINT ['supervisord']
 
 # Set the port to 80 443
 EXPOSE 80 443
-
-#CMD ["supervisord", "-n"]
