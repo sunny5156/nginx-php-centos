@@ -41,7 +41,9 @@ RUN chkconfig php-fpm on
 ADD init.sh  /init.sh
 RUN chmod +x /init.sh
 
-RUN /init.sh
+#RUN /init.sh
+
+ENTRYPOINT ['supervisord']
 
 
 #Open firewall ports
