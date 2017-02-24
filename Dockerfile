@@ -1,5 +1,5 @@
 # nginx php centos
-# 
+#
 # Version:1.0.0
 
 FROM centos:7
@@ -7,7 +7,7 @@ MAINTAINER sunny5156 <137898350@qq.com>
 
 RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
-RUN yum -y install initscripts; 
+RUN yum -y install initscripts;
 
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
@@ -19,7 +19,7 @@ RUN yum install -y python-setuptools; yum clean all
 RUN easy_install pip
 RUN pip install supervisor
 
-# Install nginx 
+# Install nginx
 RUN yum -y install nginx; yum clean all;
 
 # Install PHP
@@ -41,7 +41,7 @@ RUN chkconfig php-fpm on
 ADD init.sh  /init.sh
 RUN chmod +x /init.sh
 
-#RUN /init.sh
+RUN /init.sh
 
 #Open firewall ports
 #RUN firewall-cmd --permanent --add-service=http
