@@ -8,6 +8,7 @@ MAINTAINER sunny5156 <137898350@qq.com>
 RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
 RUN yum -y install initscripts;
+RUN yum -y install sudo;
 
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
@@ -64,7 +65,7 @@ RUN chkconfig php-fpm on
 ADD init.sh  /init.sh
 RUN chmod +x /init.sh
 
-RUN /init.sh
+RUN sudo /init.sh
 
 #Open firewall ports
 #RUN firewall-cmd --permanent --add-service=http
