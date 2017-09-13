@@ -48,7 +48,6 @@ RUN yum -y --enablerepo=remi,remi-php72 --skip-broken install \
 				php-mhash \
 				libmcrypt; yum clean all;
 
-
 # Add the configuration file of the nginx
 ADD nginx.conf /etc/nginx/nginx.conf
 ADD default.conf /etc/nginx/conf.d/default.conf
