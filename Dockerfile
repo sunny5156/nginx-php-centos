@@ -65,7 +65,7 @@ RUN chkconfig php-fpm on
 ADD init.sh  /init.sh
 RUN chmod +x /init.sh
 
-RUN sudo /init.sh
+#RUN sudo /init.sh
 
 #Open firewall ports
 #RUN firewall-cmd --permanent --add-service=http
@@ -74,3 +74,5 @@ RUN sudo /init.sh
 
 # Set the port to 80 443
 EXPOSE 80 443
+
+CMD ["/usr/bin/supervisord"]
