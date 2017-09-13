@@ -9,7 +9,7 @@ RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
 RUN yum -y install initscripts;
 
-RUN rpm -Uvh http://rpms.famillecollet.com/enterprise//remi-release-7.rpm
+RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
 # add nginx repo
 ADD nginx.repo /etc/yum.repos.d/nginx.repo
@@ -46,8 +46,8 @@ RUN yum -y --enablerepo=remi,remi-php72 --skip-broken install \
 				php-mcrypt \
 				php-bcmath \
 				php-mhash \
-				libmcrypt; \
-				yum clean all;
+				libmcrypt; yum clean all;
+
 
 # Add the configuration file of the nginx
 ADD nginx.conf /etc/nginx/nginx.conf
