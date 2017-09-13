@@ -25,29 +25,29 @@ RUN yum -y install nginx; yum clean all;
 
 # Install PHP
 RUN yum -y --enablerepo=remi,remi-php72 --skip-broken install \
-				php-amqp \
-				php-redis \
-				php-mongodb \
-				php-memcache \
-				php-fpm \
-				php-common \
-				php-cli \
-				php-pdo  \
-				php-mysql \
-				php-gd \
-				php-imap \
-				php-ldap \
-				php-odbc \
-				php-opcache \
-				php-pear \
-				php-xml \
-				php-devel \
-				php-xmlrpc \
-				php-mbstring \
-				php-mcrypt \
-				php-bcmath \
-				php-mhash \
-				libmcrypt; yum clean all;
+				&& php-amqp \
+				&& php-redis \
+				&& php-mongodb \
+				&& php-memcache \
+				&& php-fpm \
+				&& php-common \
+				&& php-cli \
+				&& php-pdo  \
+				&& php-mysql \
+				&& php-gd \
+				&& php-imap \
+				&& php-ldap \
+				&& php-odbc \
+				&& php-opcache \
+				&& php-pear \
+				&& php-xml \
+				&& php-devel \
+				&& php-xmlrpc \
+				&& php-mbstring \
+				&& php-mcrypt \
+				&& php-bcmath \
+				&& php-mhash \
+				&& libmcrypt; yum clean all;
 
 # Add the configuration file of the nginx
 ADD nginx.conf /etc/nginx/nginx.conf
