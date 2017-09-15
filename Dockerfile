@@ -77,4 +77,4 @@ EXPOSE 80 443
 
 #CMD ["/usr/bin/supervisord"]
 #CMD /usr/bin/supervisord -n -c /etc/supervisord.conf
-ENTRYPOINT ["/init.sh"]
+CMD ["/init.sh"]
