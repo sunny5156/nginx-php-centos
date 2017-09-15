@@ -75,4 +75,6 @@ RUN chmod +x /init.sh
 # Set the port to 80 443
 EXPOSE 80 443
 
-CMD ["/usr/bin/supervisord"]
+#CMD ["/usr/bin/supervisord"]
+#CMD /usr/bin/supervisord -n -c /etc/supervisord.conf
+ENTRYPOINT ["/init.sh"]
