@@ -1,3 +1,3 @@
 #!/bin/bash
 #/usr/bin/supervisord -n -c /etc/supervisord.conf
-/usr/bin/supervisord
+sudo /usr/bin/supervisord
