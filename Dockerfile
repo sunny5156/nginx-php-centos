@@ -54,10 +54,9 @@ ADD nginx.conf /etc/nginx/nginx.conf
 ADD default.conf /etc/nginx/conf.d/default.conf
 
 # Add the file
-#ADD index.php /var/www/html/index.php
-
-#Copy files
-ADD scripts/www /data
+ADD script/www/index.html /data/www/index.html
+ADD script/www/phpinfo.php /data/www/phpinfo.php
+ADD script/www/tz.php /data/www/tz.php
 
 #Add supervisord conf
 ADD supervisord.conf /etc/supervisord.conf
