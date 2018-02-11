@@ -69,6 +69,26 @@ RUN chmod +x /init.sh
 
 #RUN sudo /init.sh
 
+#解决安装 amqp扩展失败
+#install rabbitmq-c
+ADD lib/rabbit-c-0.5.2.tar.gz ~/rabbit-c-0.5.2.tar.gz
+RUN yun install openssl-devel -y
+RUN tar zxvf rabbitmq-c-0.5.2.tar.gz
+RUN cd rabbitmq-c-0.5.2
+RUN ./configure --prefix=/usr/local/rabbitmq-c
+RUN make
+RUN make install
+
+#install amqp
+RUN echo '/usr/local/rabbitmq-c'|pecl install amqp
+
+# php amqp.so
+RUN echo 'extension=amqp.so' >> /etc/php.ini
+
+# install fish
+RUN yum install fish -y
+RUN chsh -s /usr/bin/fish
+
 #Open firewall ports
 #RUN firewall-cmd --permanent --add-service=http
 #RUN firewall-cmd --permanent --add-service=https
