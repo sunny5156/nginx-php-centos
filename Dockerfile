@@ -88,10 +88,6 @@ RUN echo '/usr/local/rabbitmq-c'|pecl install amqp
 # php amqp.so
 RUN echo 'extension=amqp.so' >> /etc/php.ini
 
-# install fish
-RUN yum install fish -y
-RUN chsh -s /usr/bin/fish
-
 #Open firewall ports
 #RUN firewall-cmd --permanent --add-service=http
 #RUN firewall-cmd --permanent --add-service=https
