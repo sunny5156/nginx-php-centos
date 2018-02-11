@@ -72,22 +72,6 @@ RUN chmod +x /init.sh
 
 #RUN sudo /init.sh
 
-#解决安装 amqp扩展失败
-#install rabbitmq-c
-RUN echo 'export LC_ALL=C' >> /root/.bashrc 
-RUN source /root/.bashrc 
-COPY lib/rabbitmq-c-0.5.2.tar.gz /var/rabbitmq-c-0.5.2.tar.gz
-RUN tar -zxvf /var/rabbitmq-c-0.5.2.tar.gz -C /var
-RUN /var/rabbitmq-c-0.5.2/configure --prefix=/usr/local/rabbitmq-c
-RUN make
-RUN make install
-
-#install amqp
-RUN echo '/usr/local/rabbitmq-c'|pecl install amqp
-
-# php amqp.so
-RUN echo 'extension=amqp.so' >> /etc/php.ini
-
 #Open firewall ports
 #RUN firewall-cmd --permanent --add-service=http
 #RUN firewall-cmd --permanent --add-service=https
